@@ -1,6 +1,10 @@
 package lib.service;
 
-import lib.repository.LibraryRepository;
+import lib.model.Book;
+import lib.model.User;
+import lib.repository.BookRepository;
+import lib.repository.ListBorrowedRepository;
+import lib.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,11 +12,22 @@ import java.util.List;
 
 @Service
 public class LibraryService {
-    private final LibraryRepository libraryRepository;
+    private final UserRepository userRepository;
+    private final BookRepository bookRepository;
+    private final ListBorrowedRepository listBRepository;
 
     @Autowired
-    public LibraryService(LibraryRepository libraryRepository) {
-        this.libraryRepository = libraryRepository;
+    public LibraryService(UserRepository userRepository, BookRepository bookRepository, ListBorrowedRepository listBRepository) {
+        this.userRepository = userRepository;
+        this.bookRepository = bookRepository;
+        this.listBRepository = listBRepository;
     }
 
+    public List<User> findAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public List<Book> findAllBooks() {
+        return bookRepository.findAll();
+    }
 }
