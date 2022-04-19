@@ -1,6 +1,7 @@
 package lib.service;
 
 import lib.model.Book;
+import lib.model.LogEntry;
 import lib.model.User;
 import lib.repository.BookRepository;
 import lib.repository.ListBorrowedRepository;
@@ -29,5 +30,9 @@ public class LibraryService {
 
     public List<Book> findAllBooks() {
         return bookRepository.findAll();
+    }
+
+    public List<LogEntry> getAllLogEntry() {
+        return listBRepository.findAll();
     }
 }

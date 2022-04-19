@@ -1,6 +1,7 @@
 package lib.controller;
 
 import lib.model.Book;
+import lib.model.User;
 import lib.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,18 +19,24 @@ public class LibraryController {
     }
 
     @GetMapping("/list-of-user")
-    public String getListUsers() {
-        return libraryService.findAllUsers().toString();
+    public List<User> getListUsers() {
+        return libraryService.findAllUsers();
     }
 
     @GetMapping("/list-of-books")
-    public String getListBooks() {
-        String s = "";
-        List<Book> books = libraryService.findAllBooks();
-        for (Book b : books) {
-            s += b.toBString();
-        }
-        return s;
+    public List<Book> getListBooks() {
+//        String s = "";
+//        List<Book> books = libraryService.findAllBooks();
+//        for (Book b : books) {
+//            s += b.toBString();
+//        }
+        return libraryService.findAllBooks();
+    }
+
+    @GetMapping("/listBbooks")
+    public String getListHistoryOfBookTaking(){
+
+        return "1";
     }
 
 
