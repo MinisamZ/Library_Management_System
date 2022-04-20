@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -43,13 +44,7 @@ public class LibraryController {
         List<LogEntry> logEntries = libraryService.getAllLogEntry();
         String s = "";
         for (LogEntry logEntry : logEntries) {
-            s += "LogEntry{" +
-                    "id=" + logEntry.getId() +
-                    ", idBook=" + libraryService.getBookById(logEntry.getIdBook()) +
-                    ", idName=" + libraryService.getUserById(logEntry.getIdName()) +
-                    ", returned=" + logEntry.getReturned() +
-                    ", date='" + logEntry.getDate() + '\'' +
-                    "}\n";
+            s += "LogEntry{" + "id=" + logEntry.getId() + ", idBook=" + libraryService.getBookById(logEntry.getIdBook()) + ", idName=" + libraryService.getUserById(logEntry.getIdUser()) + ", returned=" + logEntry.getReturned() + ", date='" + logEntry.getDate() + '\'' + "}\n";
         }
         return s;
     }
@@ -60,15 +55,24 @@ public class LibraryController {
         List<LogEntry> logEntries = libraryService.getListReturnedBooks(returned);
         String s = "";
         for (LogEntry logEntry : logEntries) {
-            s += "LogEntry{" +
-                    "id=" + logEntry.getId() +
+            s += "LogEntry{" + "id=" + logEntry.getId() +
                     ", idBook=" + libraryService.getBookById(logEntry.getIdBook()) +
-                    ", idName=" + libraryService.getUserById(logEntry.getIdName()) +
+                    ", idName=" + libraryService.getUserById(logEntry.getIdUser()) +
                     ", returned=" + logEntry.getReturned() +
-                    ", date='" + logEntry.getDate() + '\'' +
-                    "}\n";
+                    ", date='" + logEntry.getDate() + '\'' + "}\n";
         }
         return s;
+    }
+
+    @GetMapping("/ListOfBorrowedBooksStudent/{id}")
+    public String getListOfBorrowedBooksStudent(@PathVariable("id") Long id) {
+        // история взятых книг у определенного студента
+        List<LogEntry> logEntries = libraryService.getEntryByStudentId(id);
+        List<Book> books = new ArrayList<>();
+        for (LogEntry logEntry : logEntries) {
+            books.add(libraryService.getBookById(logEntry.getIdBook()));
+        }
+        return books.toString();
     }
 
 

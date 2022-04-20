@@ -48,5 +48,8 @@ public class LibraryService {
     public Book getBookById(Long id) {
         return bookRepository.getById(id);
     }
+    public List<LogEntry> getEntryByStudentId(Long id){
+        return listBRepository.findBEntryByStudentId(id);
+    }
 
 }

@@ -15,7 +15,7 @@ public class LogEntry {
     @Column(name = "id_book")
     private Long idBook;
     @Column(name = "id_user")
-    private Long idName;
+    private Long idUser;
     @Column(name = "returned")
     private Boolean returned;
     @Column(name = "date")
@@ -32,12 +32,6 @@ public class LogEntry {
 
     @Override
     public String toString() {
-        return "LogEntry{" +
-                "id=" + id +
-                ", idBook=" + idBook +
-                ", idName=" + idName +
-                ", returned=" + returned +
-                ", date='" + date + '\'' +
-                '}';
+        return "LogEntry{" + "id=" + id + ", idBook=" + idBook + ", idUser=" + idUser + ", returned=" + returned + ", date='" + date + '\'' + '}';
     }
 }
