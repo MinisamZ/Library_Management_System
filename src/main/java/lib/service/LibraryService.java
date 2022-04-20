@@ -35,4 +35,18 @@ public class LibraryService {
     public List<LogEntry> getAllLogEntry() {
         return listBRepository.findAll();
     }
+
+    public List<LogEntry> getListReturnedBooks(boolean b) {
+        System.out.println(b);
+        return listBRepository.findByReturned(b);
+    }
+
+    public User getUserById(Long id) {
+        return userRepository.getById(id);
+    }
+
+    public Book getBookById(Long id) {
+        return bookRepository.getById(id);
+    }
+
 }

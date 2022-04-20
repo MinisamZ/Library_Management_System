@@ -16,6 +16,10 @@ public class LogEntry {
     private Long idBook;
     @Column(name = "id_user")
     private Long idName;
+    @Column(name = "returned")
+    private Boolean returned;
+    @Column(name = "date")
+    private String date;
 
     public Long getId() {
         return id;
@@ -23,5 +27,17 @@ public class LogEntry {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+
+    @Override
+    public String toString() {
+        return "LogEntry{" +
+                "id=" + id +
+                ", idBook=" + idBook +
+                ", idName=" + idName +
+                ", returned=" + returned +
+                ", date='" + date + '\'' +
+                '}';
     }
 }

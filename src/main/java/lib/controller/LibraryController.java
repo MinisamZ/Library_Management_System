@@ -1,10 +1,12 @@
 package lib.controller;
 
 import lib.model.Book;
+import lib.model.LogEntry;
 import lib.model.User;
 import lib.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -19,11 +21,13 @@ public class LibraryController {
     }
 
     @GetMapping("/list-of-user")
+    // список пользователей
     public List<User> getListUsers() {
         return libraryService.findAllUsers();
     }
 
     @GetMapping("/list-of-books")
+    // список книг
     public List<Book> getListBooks() {
 //        String s = "";
 //        List<Book> books = libraryService.findAllBooks();
@@ -34,9 +38,37 @@ public class LibraryController {
     }
 
     @GetMapping("/listBbooks")
-    public String getListHistoryOfBookTaking(){
+    // список книг отданных и возвращенных
+    public String getListHistoryOfBookTaking() {
+        List<LogEntry> logEntries = libraryService.getAllLogEntry();
+        String s = "";
+        for (LogEntry logEntry : logEntries) {
+            s += "LogEntry{" +
+                    "id=" + logEntry.getId() +
+                    ", idBook=" + libraryService.getBookById(logEntry.getIdBook()) +
+                    ", idName=" + libraryService.getUserById(logEntry.getIdName()) +
+                    ", returned=" + logEntry.getReturned() +
+                    ", date='" + logEntry.getDate() + '\'' +
+                    "}\n";
+        }
+        return s;
+    }
 
-        return "1";
+    @GetMapping("/ListOfBorrowedBooks/{returned}")
+    public String getListOfBorrowedBooks(@PathVariable("returned") boolean returned) {
+        // список возвращенных и не возвращенных книг
+        List<LogEntry> logEntries = libraryService.getListReturnedBooks(returned);
+        String s = "";
+        for (LogEntry logEntry : logEntries) {
+            s += "LogEntry{" +
+                    "id=" + logEntry.getId() +
+                    ", idBook=" + libraryService.getBookById(logEntry.getIdBook()) +
+                    ", idName=" + libraryService.getUserById(logEntry.getIdName()) +
+                    ", returned=" + logEntry.getReturned() +
+                    ", date='" + logEntry.getDate() + '\'' +
+                    "}\n";
+        }
+        return s;
     }
 
 
