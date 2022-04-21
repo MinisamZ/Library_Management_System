@@ -51,5 +51,11 @@ public class LibraryService {
     public List<LogEntry> getEntryByStudentId(Long id){
         return listBRepository.findBEntryByStudentId(id);
     }
+    public  List<LogEntry> getEntryByStudentIdAndReturned(Long id, boolean b){
+        return listBRepository.findBEntryByStudentIdAndReturned(id,b);
+    }
+    public User saveUser( User user){
+        return userRepository.save(user);
+    }
 
 }

@@ -7,6 +7,7 @@ import lib.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -74,6 +75,25 @@ public class LibraryController {
         }
         return books.toString();
     }
+
+    @GetMapping("/ListOfBorrowedBooksStudent/{id}/{returned}")
+    public String getListListOfReturnedBooksOrNot(@PathVariable("id") Long id, @PathVariable("returned") boolean returned) {
+        // история взятых книг у определенного студента с фильтром на возврат
+        List<LogEntry> logEntries = libraryService.getEntryByStudentIdAndReturned(id,returned);
+        List<Book> books = new ArrayList<>();
+        for (LogEntry logEntry : logEntries) {
+            books.add(libraryService.getBookById(logEntry.getIdBook()));
+        }
+        return books.toString();
+    }
+
+    @PostMapping("/user-create")
+    public User createUser(User user) {
+        System.out.println(user.toString());
+//        libraryService.saveUser(user);
+        return libraryService.saveUser(user);
+    }
+
 
 
 }

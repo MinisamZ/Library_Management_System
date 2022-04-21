@@ -13,4 +13,7 @@ public interface ListBorrowedRepository extends JpaRepository<LogEntry, Long> {
 
     @Query("select l from LogEntry l where l.idUser = ?1 ")
     List<LogEntry> findBEntryByStudentId(@Param("id_user") Long id);
+
+    @Query("select l from LogEntry l where l.idUser = ?1 and l.returned =?2")
+    List<LogEntry> findBEntryByStudentIdAndReturned(@Param("id_user") Long id, @Param("returned") boolean b);
 }
