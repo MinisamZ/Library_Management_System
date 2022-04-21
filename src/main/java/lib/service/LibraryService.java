@@ -48,14 +48,28 @@ public class LibraryService {
     public Book getBookById(Long id) {
         return bookRepository.getById(id);
     }
-    public List<LogEntry> getEntryByStudentId(Long id){
+    public Integer getNumberOfBooks(Long id){
+        return bookRepository.findNumberBooksById(id);
+    }
+
+    public List<LogEntry> getEntryByStudentId(Long id) {
         return listBRepository.findBEntryByStudentId(id);
     }
-    public  List<LogEntry> getEntryByStudentIdAndReturned(Long id, boolean b){
-        return listBRepository.findBEntryByStudentIdAndReturned(id,b);
+
+    public List<LogEntry> getEntryByStudentIdAndReturned(Long id, boolean b) {
+        return listBRepository.findBEntryByStudentIdAndReturned(id, b);
     }
-    public User saveUser( User user){
+
+    public User saveUser(User user) {
         return userRepository.save(user);
+    }
+
+    public Book saveBook(Book book) {
+        return bookRepository.save(book);
+    }
+    public LogEntry saveLogEntry(LogEntry logEntry){
+        logEntry.setReturned(false);
+        return listBRepository.save(logEntry);
     }
 
 }

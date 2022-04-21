@@ -79,7 +79,7 @@ public class LibraryController {
     @GetMapping("/ListOfBorrowedBooksStudent/{id}/{returned}")
     public String getListListOfReturnedBooksOrNot(@PathVariable("id") Long id, @PathVariable("returned") boolean returned) {
         // история взятых книг у определенного студента с фильтром на возврат
-        List<LogEntry> logEntries = libraryService.getEntryByStudentIdAndReturned(id,returned);
+        List<LogEntry> logEntries = libraryService.getEntryByStudentIdAndReturned(id, returned);
         List<Book> books = new ArrayList<>();
         for (LogEntry logEntry : logEntries) {
             books.add(libraryService.getBookById(logEntry.getIdBook()));
@@ -89,11 +89,28 @@ public class LibraryController {
 
     @PostMapping("/user-create")
     public User createUser(User user) {
+        // сохранение пользователя
         System.out.println(user.toString());
-//        libraryService.saveUser(user);
         return libraryService.saveUser(user);
     }
 
+    @PostMapping("/book-create")
+    public Book createBook(Book book) {
+        // сохранение пользователя
+        System.out.println(book.toString());
+        return libraryService.saveBook(book);
+    }
+
+    @PostMapping("/take-a-book")
+    public String createLogEntry(LogEntry logEntry) {
+        // взять книгу
+        Book book = libraryService.getBookById(logEntry.getIdBook());
+        if (book.getCount() <= 0)
+            return "error";
+        book.setCount(book.getCount() - 1);
+        libraryService.saveBook(book);
+        return libraryService.saveLogEntry(logEntry) + " - result";
+    }
 
 
 }

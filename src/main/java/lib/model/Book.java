@@ -21,7 +21,7 @@ public class Book {
     @Column(name = "genre")
     private String genre;
     @Column(name = "number_of_books")
-    private String count;
+    private int count;
 
 
     public Long getId() {
