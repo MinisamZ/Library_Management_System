@@ -48,7 +48,12 @@ public class LibraryService {
     public Book getBookById(Long id) {
         return bookRepository.getById(id);
     }
-    public Integer getNumberOfBooks(Long id){
+
+    public LogEntry getLogEntryByIdTableAndUser(Long id1, Long id2) {
+        return listBRepository.findLogEntryByIdTableAndUser(id1, id2);
+    }
+
+    public Integer getNumberOfBooks(Long id) {
         return bookRepository.findNumberBooksById(id);
     }
 
@@ -67,7 +72,13 @@ public class LibraryService {
     public Book saveBook(Book book) {
         return bookRepository.save(book);
     }
-    public LogEntry saveLogEntry(LogEntry logEntry){
+
+    public LogEntry saveLogEntryTrue(LogEntry logEntry) {
+        logEntry.setReturned(true);
+        return listBRepository.save(logEntry);
+    }
+
+    public LogEntry saveLogEntryFalse(LogEntry logEntry) {
         logEntry.setReturned(false);
         return listBRepository.save(logEntry);
     }

@@ -109,7 +109,19 @@ public class LibraryController {
             return "error";
         book.setCount(book.getCount() - 1);
         libraryService.saveBook(book);
-        return libraryService.saveLogEntry(logEntry) + " - result";
+        return libraryService.saveLogEntryFalse(logEntry) + " - result";
+    }
+
+    @PostMapping("/turn-in-a-book")
+    public String updateLogEntry(LogEntry logEntry) {
+        // сдать книгу
+        Book book = libraryService.getBookById(logEntry.getIdBook());
+        if (book.getCount() <= 0)
+            return "error";
+        book.setCount(book.getCount() + 1);
+        libraryService.saveBook(book);
+        LogEntry logEntry2 = libraryService.getLogEntryByIdTableAndUser(logEntry.getIdUser(), logEntry.getIdBook());
+        return libraryService.saveLogEntryTrue(logEntry2) + " - result";
     }
 
 
