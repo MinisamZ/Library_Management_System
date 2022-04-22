@@ -3,6 +3,7 @@ package lib.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -22,4 +23,7 @@ public class User {
     private String password;
     @Column(name = "date")
     public String dateLastUpdate;
+
+    @OneToMany(targetEntity = LogEntry.class)
+    private List<User> logEntry;
 }

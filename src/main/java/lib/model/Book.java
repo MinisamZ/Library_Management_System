@@ -4,6 +4,7 @@ package lib.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -22,6 +23,9 @@ public class Book {
     private String genre;
     @Column(name = "number_of_books")
     private int count;
+
+    @OneToMany(targetEntity = LogEntry.class)
+    private List logEntry;
 
 
     public Long getId() {
