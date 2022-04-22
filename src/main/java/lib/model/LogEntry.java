@@ -13,13 +13,21 @@ public class LogEntry {
     @Column(name = "id", nullable = false)
     private Long id;
     @Column(name = "id_book")
+    @JoinColumn(name = "id_book",referencedColumnName = "table_id")
     private Long idBook;
     @Column(name = "id_user")
+    @JoinColumn(name = "id_user",referencedColumnName = "id")
     private Long idUser;
     @Column(name = "returned")
     private Boolean returned;
     @Column(name = "date")
     private String date;
+
+    @ManyToOne
+    private User user;
+    @ManyToOne
+    private Book book;
+
 
     public Long getId() {
         return id;
